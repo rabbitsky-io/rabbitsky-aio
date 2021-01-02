@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 Restart=always
 RestartSec=1
-ExecStart=/usr/bin/rabbitsky -origin {{ORIGIN}} -port 8080 -admin-password {{PASSWORD}} -max-players {{MAXPLAYERS}}
+ExecStart=/usr/bin/rabbitsky -origin {{ORIGIN}} -port 8080 -admin-password "{{PASSWORD}}" -max-players {{MAXPLAYERS}}
 LimitNOFILE=32000
 
 [Install]
