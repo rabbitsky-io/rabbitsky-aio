@@ -1,8 +1,7 @@
 #!/bin/bash
 
 if [[ "$EUID" -ne "0" ]]; then
-    echo "Error:"
-    echo "Please run this script as root or use sudo."
+    echo "Error: Please run this script as root or use sudo."
     exit 1
 fi
 
@@ -30,7 +29,7 @@ echo "Example: demo.rabbitsky.io"
 echo
 while [ -z "$HOST" ]
 do
-    read -p "Host: " HOST
+    read < /dev/tty -p "Host: " HOST
 done
 
 ## SSL
@@ -44,7 +43,7 @@ echo "If you disable SSL, you cannot use Twitch Embed due to Twitch Embed Policy
 echo
 while [ "$ssl_enable" != "n" ] && [ "$ssl_enable" != "N" ] && [ "$ssl_enable" != "y" ] && [ "$ssl_enable" != "Y" ] && [ "$ssl_enable" != "" ]
 do
-    read -p "Enable SSL and create certificate from LetsEncrypt? (Y/N, default: Y): " ssl_enable
+    read < /dev/tty -p "Enable SSL and create certificate from LetsEncrypt? (Y/N, default: Y): " ssl_enable
 done
 
 if [ "$ssl_enable" == "n" ] || [ "$ssl_enable" == "N" ]
@@ -65,7 +64,7 @@ then
     echo
     while [ "$SSLEMAIL" == "" ]
     do
-        read -p "E-Mail: " SSLEMAIL
+        read < /dev/tty -p "E-Mail: " SSLEMAIL
     done
 fi
 
@@ -75,7 +74,7 @@ echo "--------------------"
 echo "Max Players"
 echo "--------------------"
 echo
-read -p "Maximum Players (Default 100): " temp_maxplayer
+read < /dev/tty -p "Maximum Players (Default 100): " temp_maxplayer
 if [ ! -z "$temp_maxplayer" ]
 then
     MAXPLAYERS="$temp_maxplayer"
@@ -121,7 +120,7 @@ echo "--------------------"
 echo
 while [ "$EMBEDTYPE" != "twitch" ] && [ "$EMBEDTYPE" != "youtube" ]
 do
-    read -p "Embed Platform Type (twitch|youtube): " EMBEDTYPE
+    read < /dev/tty -p "Embed Platform Type (twitch|youtube): " EMBEDTYPE
 done
 
 ## Embed ID
@@ -143,7 +142,7 @@ fi
 echo
 while [ "$EMBEDID" == "" ]
 do
-    read -p "Embed ID: " EMBEDID
+    read < /dev/tty -p "Embed ID: " EMBEDID
 done
 
 ## Embed Chat
@@ -155,7 +154,7 @@ echo "--------------------"
 echo
 while [ "$embed_chat_enable" != "n" ] && [ "$embed_chat_enable" != "N" ] && [ "$embed_chat_enable" != "y" ] && [ "$embed_chat_enable" != "Y" ] && [ "$embed_chat_enable" != "" ]
 do
-    read -p "Enable Embed Chat? (Y/N, default: Y): " embed_chat_enable
+    read < /dev/tty -p "Enable Embed Chat? (Y/N, default: Y): " embed_chat_enable
 done
 
 if [ "$embed_chat_enable" == "n" ] || [ "$embed_chat_enable" == "N" ]
