@@ -182,13 +182,13 @@ mkdir -p /etc/nginx/sites-enabled
 mkdir -p /etc/nginx/sites-disabled
 mv -f /etc/nginx/nginx.conf /etc/nginx/nginx.conf.rabbitsky.backup
 mv -f /etc/nginx/sites-enabled/${HOST} /etc/nginx/sites-disabled/${HOST}.rabbitsky.backup
-wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/extra-files/nginx/nginx.conf
+wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/nginx.conf
 
 if [ "$UNSECURE" -eq "0" ]
 then
-    wget -O /etc/nginx/sites-enabled/${HOST} https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/extra-files/nginx/sites/enabled/http.conf
+    wget -O /etc/nginx/sites-enabled/${HOST} https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/sites-enabled/http.conf
 else
-    wget -O /etc/nginx/sites-enabled/${HOST} https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/extra-files/nginx/sites/enabled/https-80.conf
+    wget -O /etc/nginx/sites-enabled/${HOST} https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/sites-enabled/https-80.conf
 fi
 
 sed -i 's/{{DOMAIN}}/'"${HOST}"'/g' /etc/nginx/sites-enabled/${HOST}
@@ -205,7 +205,7 @@ wget -O /usr/bin/rabbitsky https://github.com/rabbitsky-io/rabbitsky-server/rele
 chmod +x /usr/bin/rabbitsky
 
 # Create Rabbit Sky Service
-wget -O /etc/systemd/system/rabbitsky.service https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/extra-files/systemd/rabbitsky.service
+wget -O /etc/systemd/system/rabbitsky.service https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/systemd/rabbitsky.service
 sed -i 's/{{ORIGIN}}/'"${HOST}"'/g' /etc/systemd/system/rabbitsky.service
 sed -i 's/{{PASSWORD}}/'"${ADMINPASS}"'/g' /etc/systemd/system/rabbitsky.service
 sed -i 's/{{MAXPLAYERS}}/'"${MAXPLAYERS}"'/g' /etc/systemd/system/rabbitsky.service
@@ -220,7 +220,7 @@ then
     config_secure="false"
 fi
 
-wget -O /var/www/rabbitsky/config.json https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/extra-files/rabbitsky-web/config.json
+wget -O /var/www/rabbitsky/config.json https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/rabbitsky-web/config.json
 sed -i 's/{{EMBEDTYPE}}/'"${EMBEDTYPE}"'/g' /var/www/rabbitsky/config.json
 sed -i 's/{{EMBEDID}}/'"${EMBEDID}"'/g' /var/www/rabbitsky/config.json
 sed -i 's/{{EMBEDCHAT}}/'"${EMBEDCHAT}"'/g' /var/www/rabbitsky/config.json
@@ -257,7 +257,7 @@ then
     openssl dhparam -out /etc/nginx/certs/dhparam.pem 2048
 
     # Get SSL Config
-    wget -O /etc/nginx/sites-enabled/${HOST}.ssl https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/extra-files/nginx/sites/enabled/https-443.conf
+    wget -O /etc/nginx/sites-enabled/${HOST}.ssl https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/sites-enabled/https-443.conf
     sed -i 's/{{DOMAIN}}/'"${HOST}"'/g' /etc/nginx/sites-enabled/${HOST}.ssl
 
     # Restart NGINX
