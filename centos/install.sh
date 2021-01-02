@@ -229,10 +229,10 @@ wget -O /usr/bin/rabbitsky https://github.com/rabbitsky-io/rabbitsky-server/rele
 chmod +x /usr/bin/rabbitsky
 
 # Create Rabbit Sky Service
-config_origin="http://${HOST}"
+config_origin="http:\/\/${HOST}"
 if [ "$UNSECURE" -eq "0" ]
 then
-    config_origin="https://${HOST}"
+    config_origin="https:\/\/${HOST}"
 fi
 
 wget -O /etc/systemd/system/rabbitsky.service https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/systemd/rabbitsky.service
@@ -280,7 +280,8 @@ then
     yum install snapd -y
     systemctl enable --now snapd.socket
     ln -s /var/lib/snapd/snap /snap
-    sleep 10
+    echo "Sleeping for 30 second to wait snapd"
+    sleep 30
     snap install core
     snap refresh core
     snap install --classic certbot
