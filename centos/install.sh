@@ -290,7 +290,7 @@ then
     /usr/bin/certbot certonly -d ${HOST} -a webroot -w /var/www/rabbitsky --non-interactive --agree-tos -m ${SSLEMAIL}
 
     # Renew Cron Daily at 12 PM
-    (crontab -l ; echo "0 12 * * * /usr/bin/certbot renew -d ${HOST} -a webroot -w /var/www/rabbitsky --post-hook \"systemctl reload nginx\"") | crontab -
+    (crontab -l ; echo "0 12 * * * /usr/bin/certbot renew --post-hook \"systemctl reload nginx\"") | crontab -
 
     # Generate dhparam
     openssl dhparam -out /etc/nginx/certs/dhparam.pem 2048
