@@ -169,6 +169,23 @@ echo "--------------------"
 echo "Start Installation"
 echo "--------------------"
 echo
+echo "This will start the installation."
+echo "Installing:"
+echo "    - EPEL Repository"
+echo "    - NGINX"
+echo "    - Git"
+echo "    - WGET"
+if [ "$UNSECURE" -eq "0" ]
+then
+    echo "    - Snapd"
+    echo "    - Certbot via Snapd"
+fi
+echo
+echo "Press Enter to Continue, or CTRL+C / CMD+C to cancel. "
+read < /dev/tty
+
+# Real Start Now
+echo
 
 # Disable SETENFORCE, most of the time it causing problem with nginx
 sed -i 's/\=enforcing/\=disabled/g' /etc/selinux/config
@@ -212,8 +229,14 @@ wget -O /usr/bin/rabbitsky https://github.com/rabbitsky-io/rabbitsky-server/rele
 chmod +x /usr/bin/rabbitsky
 
 # Create Rabbit Sky Service
+config_origin="http://${HOST}"
+if [ "$UNSECURE" -eq "0" ]
+then
+    config_origin="https://${HOST}"
+fi
+
 wget -O /etc/systemd/system/rabbitsky.service https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/systemd/rabbitsky.service
-sed -i 's/{{ORIGIN}}/'"${HOST}"'/g' /etc/systemd/system/rabbitsky.service
+sed -i 's/{{ORIGIN}}/'"${config_origin}"'/g' /etc/systemd/system/rabbitsky.service
 sed -i 's/{{PASSWORD}}/'"${ADMINPASS}"'/g' /etc/systemd/system/rabbitsky.service
 sed -i 's/{{MAXPLAYERS}}/'"${MAXPLAYERS}"'/g' /etc/systemd/system/rabbitsky.service
 
