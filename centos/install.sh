@@ -88,11 +88,11 @@ echo "--------------------"
 echo "Admin Password"
 echo "--------------------"
 echo
-read -s -p "Server Admin Password (Empty to disable admin): " temp_pass1
+read < /dev/tty -s -p "Server Admin Password (Empty to disable admin): " temp_pass1
 echo
 if [ "$temp_pass1" != "" ]
 then
-    read -s -p "Server Admin Password (Type Again - Confirm):   " temp_pass2
+    read < /dev/tty -s -p "Server Admin Password (Type Again - Confirm):   " temp_pass2
     echo
 fi
 
@@ -101,11 +101,11 @@ do
     echo
     echo "Password is not same, try again."
     echo
-    read -s -p "Server Admin Password (Empty to disable admin): " temp_pass1
+    read < /dev/tty -s -p "Server Admin Password (Empty to disable admin): " temp_pass1
     echo
     if [ "$temp_pass1" != "" ]
     then
-        read -s -p "Server Admin Password (Type Again - Confirm):   " temp_pass2
+        read < /dev/tty -s -p "Server Admin Password (Type Again - Confirm):   " temp_pass2
         echo
     fi
 done
