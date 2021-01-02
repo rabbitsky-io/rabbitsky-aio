@@ -192,7 +192,7 @@ wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/rabbitsky-io/rab
 
 if [ "$UNSECURE" -eq "0" ]
 then
-    wget -O /etc/nginx/sites-enabled/${HOST} https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/sites-enabled/https-80.config
+    wget -O /etc/nginx/sites-enabled/${HOST} https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/sites-enabled/https-80.conf
 else
     wget -O /etc/nginx/sites-enabled/${HOST} https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/sites-enabled/http.conf
 fi
@@ -272,6 +272,7 @@ then
     openssl dhparam -out /etc/nginx/certs/dhparam.pem 2048
 
     # Get SSL Config
+    mv -f /etc/nginx/sites-enabled/${HOST}.ssl /etc/nginx/sites-disabled/${HOST}.ssl.rabbitsky.backup
     wget -O /etc/nginx/sites-enabled/${HOST}.ssl https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/sites-enabled/https-443.conf
     sed -i 's/{{DOMAIN}}/'"${HOST}"'/g' /etc/nginx/sites-enabled/${HOST}.ssl
 
