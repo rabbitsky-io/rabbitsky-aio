@@ -1,0 +1,14 @@
+{
+    "embed": {
+        "type": "{{EMBEDTYPE}}",
+        "id": "{{EMBEDID}}",
+        "chat": {{EMBEDCHAT}}
+    },
+    "servers": [
+        {
+            "name": "Main",
+            "host": "{{HOST}}",
+            "secure": {{SECURE}}
+        }
+    ]
+}
