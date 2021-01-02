@@ -185,9 +185,9 @@ wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/rabbitsky-io/rab
 
 if [ "$UNSECURE" -eq "0" ]
 then
-    wget -O /etc/nginx/sites-enabled/${HOST} https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/sites-enabled/http.conf
+    wget -O /etc/nginx/sites-enabled/${HOST} https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/sites-enabled/https-80.config
 else
-    wget -O /etc/nginx/sites-enabled/${HOST} https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/sites-enabled/https-80.conf
+    wget -O /etc/nginx/sites-enabled/${HOST} https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/nginx/sites-enabled/http.conf
 fi
 
 sed -i 's/{{DOMAIN}}/'"${HOST}"'/g' /etc/nginx/sites-enabled/${HOST}
@@ -226,6 +226,9 @@ sed -i 's/{{EMBEDCHAT}}/'"${EMBEDCHAT}"'/g' /var/www/rabbitsky/config.json
 sed -i 's/{{HOST}}/'"${HOST}"'/g' /var/www/rabbitsky/config.json
 sed -i 's/{{SECURE}}/'"${config_secure}"'/g' /var/www/rabbitsky/config.json
 
+# Change Ownership
+chown www.www /var/www/rabbitsky -fR
+
 # Start NGINX and Rabbit Sky
 systemctl enable --now rabbitsky
 systemctl enable --now nginx
@@ -238,6 +241,9 @@ if [ "$UNSECURE" -eq "0" ]
 then
     mkdir -p /etc/nginx/certs
     mkdir -p /var/www/rabbitsky/.well-known/acme-challenge
+
+    # Change Ownership
+    chown www.www /var/www/rabbitsky/.well-known/acme-challenge -fR
 
     # Install Certbot with Snap
     yum install snapd -y
