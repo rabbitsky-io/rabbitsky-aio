@@ -162,6 +162,13 @@ then
     EMBEDCHAT="false"
 fi
 
+# START!
+echo
+echo "--------------------"
+echo "Start Installation"
+echo "--------------------"
+echo
+
 # Disable SETENFORCE, most of the time it causing problem with nginx
 sed -i 's/\=enforcing/\=disabled/g' /etc/selinux/config
 setenforce 0
@@ -247,9 +254,12 @@ then
 
     # Install Certbot with Snap
     yum install snapd -y
-    snap install core -y
-    snap refresh core -y
-    snap install --classic certbot -y
+    systemctl enable --now snapd.socket
+    ln -s /var/lib/snapd/snap /snap
+    sleep 10
+    snap install core
+    snap refresh core
+    snap install --classic certbot
     ln -s /snap/bin/certbot /usr/bin/certbot
 
     # Generate SSL Domain
