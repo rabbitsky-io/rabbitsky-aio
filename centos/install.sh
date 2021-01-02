@@ -213,10 +213,10 @@ sed -i 's/{{MAXPLAYERS}}/'"${MAXPLAYERS}"'/g' /etc/systemd/system/rabbitsky.serv
 git clone https://github.com/rabbitsky-io/rabbitsky-web.git /var/www/rabbitsky
 
 # Create Rabbit Sky Web Config
-config_secure="true"
+config_secure="false"
 if [ "$UNSECURE" -eq "0" ]
 then
-    config_secure="false"
+    config_secure="true"
 fi
 
 wget -O /var/www/rabbitsky/config.json https://raw.githubusercontent.com/rabbitsky-io/rabbitsky-aio/master/extra-files/rabbitsky-web/config.json
