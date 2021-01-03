@@ -260,7 +260,7 @@ chown www.www /var/www/rabbitsky -fR
 systemctl enable --now rabbitsky
 systemctl enable --now nginx
 
-## Restart Nginx
+# Restart Nginx
 systemctl restart nginx
 
 # Set Variable Visit
