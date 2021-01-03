@@ -10,12 +10,17 @@ Currently the AIO can only install to CentOS, Red Hat, Ubuntu, and Debian OS. Fo
 
 ## Requirement
 
-1. **VM / VPS / Server**
+1. **VM / VPS / Server with x64 OS**
+
     *Minimum: 1 Core, 1 GB Ram, and 1GB Hard Disk Space.*
     *We recommend using a Fresh Server. If you have things on your server already, consider installing it manually.*
+
 2. **Public IP**
+
     *Must be attached to the **VM / VPS / Server (1)**.*
+
 3. **Domain / Subdomain**
+
     *Must be pointed to the **Public IP (2)**.*
 
 ## Installation
