@@ -218,11 +218,14 @@ fi
 sed -i 's/{{DOMAIN}}/'"${HOST}"'/g' /etc/nginx/sites-enabled/${HOST}
 
 # Firewall
+firewall-cmd --permanent --zone=public --add-service=http
 iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 if [ "$UNSECURE" -eq "0" ]
 then
+    firewall-cmd --permanent --zone=public --add-service=https
     iptables -I INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 fi
+firewall-cmd --reload
 
 # Download Latest Rabbit Sky Server
 wget -O /usr/bin/rabbitsky https://github.com/rabbitsky-io/rabbitsky-server/releases/latest/download/rabbitsky-linux-amd64
