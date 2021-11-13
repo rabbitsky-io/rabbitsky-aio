@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  rabbitsky-web:
+    image: nginx
+    ports:
+    - 80:80
+    - 443:443
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./rabbitsky-web:/usr/share/nginx/html
+      - ./config.json:/usr/share/nginx/html/config.json ## edit config.example.json first then up this dockerfile
+      - /etc/letsencrypt/live/<DOMAIN>:/etc/letsencrypt/live/{{DOMAIN}}
+      - /etc/letsencrypt/live/<DOMAIN>:/etc/letsencrypt/live/{{DOMAIN}}
+
+  rabbitsky-server:
+    build: ./rabbitsky-server
+    command: ./rabbitsky-server -port 8080 -tick 10 -max-players 100 -origin https://<DOMAIN> -limit-position-min 0,0,0 limit-position-max 4000,100,3000
